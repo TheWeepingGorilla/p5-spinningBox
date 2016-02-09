@@ -1,46 +1,38 @@
-// Learning Processing
-// Daniel Shiffman
+// Adapted from Learning Processing by Daniel Shiffman
 // http://www.learningprocessing.com
-
 // Example 1-1: stroke and fill
+// With thanks to GoToLoop
 
-var s = function( p ) {
+new p5(p => {
+	// Imports
+	Ball = classes.Ball
 
-	var boxX = 200;
-	var boxY = 200;
-	var boxZ = -100;
-	var zLimit = -200;
-	var boxRotation = 0;
+	ballDef = new Ball(p)
 
-	p.setup = function() {
-  	p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
-  	p.ortho(-p.width, p.width, p.height, -p.height, 0.1, 100);
-	};
+	p.setup = () => {
+  	p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL)
+  	p.ortho(-p.width, p.width, p.height, -p.height, 0.1, 100)
+	}
 
-	p.draw = function() {
+	p.draw = () => {
+  	p.translate(ballDef.boxX,ballDef.boxY,ballDef.boxZ)
+  	p.rotate(ballDef.boxRotation, [1,1,0])
+  	ballDef.drawing(60)
 
-  	p.translate(boxX,boxY,boxZ);
-  	p.rotate(boxRotation, [1,1,0]);
-  	p.box(60);
-
-  	boxRotation = boxRotation + .1;
-  	boxX = boxX - 1;
-  	boxY = boxY - 2;
-  	boxZ = boxZ - 1;
-  	console.log(boxZ);
+  	ballDef.boxRotation = ballDef.boxRotation + .1
+  	ballDef.boxX = ballDef.boxX - 1
+  	ballDef.boxY = ballDef.boxY - 2
+  	ballDef.boxZ = ballDef.boxZ - 1
 
 	  // Position Resets
-	  if (boxY < -p.height) {
-	    boxY = p.height;
-		};
-		if (boxX < -p.width) {
-	    boxX = p.width;
-		};
-		if (boxZ < zLimit) {
-			boxZ = -100;
-		};
-
-	};
-};
-
-var myp5 = new p5(s,'sketch0');
+	  if (ballDef.boxY < -p.height) {
+	    ballDef.boxY = p.height
+		}
+		if (ballDef.boxX < -p.width) {
+	    ballDef.boxX = p.width
+		}
+		if (ballDef.boxZ < ballDef.zLimit) {
+			ballDef.boxZ = -100
+		}
+	}
+})
